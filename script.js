@@ -1,7 +1,7 @@
 document.getElementById('fx-tool-btn').addEventListener('click', async () => {
     const date = prompt("Please enter a date in DD-MM-YYYY format:");
     if (date) {
-        document.getElementById('message').innerText = "Processing... please wait for 3-4 minutes to respect API rate limits...";
+        document.getElementById('message').innerText = "Processing... Please wait for 3-4 minutes to respect API rate limits.";
         
         try {
             const response = await fetch('https://stakin-fx-tool-dns2zze2e-junaid88nsrs-projects.vercel.app/fetch-data', {
@@ -22,12 +22,18 @@ document.getElementById('fx-tool-btn').addEventListener('click', async () => {
                 document.body.appendChild(a);
                 a.click();
                 window.URL.revokeObjectURL(url);
+                document.body.removeChild(a); // Clean up the DOM
                 document.getElementById('message').innerText = "Download completed.";
             } else {
-                document.getElementById('message').innerText = "Error processing your request. Please try again.";
+                // Handling different HTTP status codes
+                const errorText = await response.text();
+                document.getElementById('message').innerText = `Error: ${response.status} - ${response.statusText}. ${errorText}`;
             }
         } catch (error) {
-            document.getElementById('message').innerText = "An error occurred. Please try again.";
+            console.error('Fetch error:', error); // Logging the error for debugging
+            document.getElementById('message').innerText = "An error occurred while processing your request. Please try again.";
         }
+    } else {
+        document.getElementById('message').innerText = "No date entered. Please provide a valid date.";
     }
 });
