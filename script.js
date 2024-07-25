@@ -4,7 +4,7 @@ document.getElementById('fx-tool-btn').addEventListener('click', async () => {
         document.getElementById('message').innerText = "Processing... please wait for 3-4 minutes to respect API rate limits...";
         
         try {
-            const response = await fetch('https://https:stakin-fx-tool-dns2zze2e-junaid88nsrs-projects.vercel.app/fetch-data', {
+            const response = await fetch('https://stakin-fx-tool-dns2zze2e-junaid88nsrs-projects.vercel.app/fetch-data', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
